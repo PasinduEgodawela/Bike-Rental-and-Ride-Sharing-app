@@ -45,8 +45,7 @@ public class User {
     public String getRole() { return role; }
     public void setRole(String role) { this.role = role; }
 
-    // A copy of this user with no password. This is the copy kept in the session,
-    // so the password is not sitting in memory for the whole login.
+    
     public User withoutPassword() {
         return new User(userId, name, email, "", phone, address, role);
     }
@@ -58,8 +57,7 @@ public class User {
                 + TextClean.clean(role);
     }
 
-    // Throws IllegalArgumentException when the line is not a valid user record.
-    // The file handler catches it, so one bad line does not stop everything.
+    
     public static User fromFileString(String line) {
         String[] p = line.split("\\|", -1);
         if (p.length != 7) {
