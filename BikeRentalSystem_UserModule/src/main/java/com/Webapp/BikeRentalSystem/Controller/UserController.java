@@ -72,7 +72,7 @@ public class UserController {
         try {
             User user = userService.loginUser(dto);
 
-            // Save the logged-in user in the session, without the password
+            
             session.setAttribute("loggedInUser", user.withoutPassword());
 
             return "redirect:/users/profile";
@@ -187,7 +187,7 @@ public class UserController {
             return "redirect:/users/login";
         }
 
-        // Only Admin can delete another user
+
         String targetId;
 
         if (id != null && "Admin".equalsIgnoreCase(user.getRole())) {
@@ -197,7 +197,7 @@ public class UserController {
         }
 
         try {
-            userService.deleteUser(targetId, user);      // refuses to delete the last Admin
+            userService.deleteUser(targetId, user);     
         } catch (IllegalArgumentException | SecurityException e) {
             ra.addFlashAttribute("error", e.getMessage());
             return "redirect:/users/profile";
