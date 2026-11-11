@@ -13,14 +13,12 @@ public class RideFileHandler {
     private final FileHandler fileHandler;
     private final String path;
 
-    // ride.file.path = full path of rides.txt (set in application.properties)
     public RideFileHandler(FileHandler fileHandler,
                            @Value("${ride.file.path}") String filePath) {
         this.fileHandler = fileHandler;
         this.path = filePath;
     }
 
-    // Reads rides.txt and turns every line into a Ride object
     public List<Ride> loadRides() {
         List<Ride> rides = new ArrayList<>();
         for (String line : fileHandler.readLines(path)) {
@@ -33,8 +31,7 @@ public class RideFileHandler {
         return rides;
     }
 
-    // Writes the whole list back to rides.txt.
-    // Lines that could not be read are kept at the end instead of being deleted.
+  
     public void saveRides(List<Ride> rides) {
         List<String> lines = new ArrayList<>();
         for (Ride r : rides) {
@@ -52,7 +49,7 @@ public class RideFileHandler {
         fileHandler.writeLines(path, lines);
     }
 
-    // R001, R002, R003 ...
+ 
     public String nextId(List<Ride> rides) {
         List<String> ids = new ArrayList<>();
         for (Ride r : rides) {
