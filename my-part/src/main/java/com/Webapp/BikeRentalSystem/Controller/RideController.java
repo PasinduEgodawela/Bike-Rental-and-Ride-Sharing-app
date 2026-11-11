@@ -18,12 +18,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Rides.
- *  - A Driver publishes a ride and can change or cancel their own rides.
- *  - A Customer sees the rides on the bikes they booked and joins one by sending a ride request.
- *  - An Admin sees every ride and can delete one.
- */
+
 @Controller
 @RequestMapping("/rides")
 public class RideController {
@@ -36,7 +31,7 @@ public class RideController {
         this.bikeService = bikeService;
     }
 
-    // ---------- LIST (Admin = all, Driver = own, Customer = rides on their booked bikes) ----------
+  
 
     @GetMapping
     public String listRides(HttpSession session, Model model) {
@@ -61,7 +56,7 @@ public class RideController {
         return "admin/rides";
     }
 
-    // ---------- CREATE (Driver only) ----------
+  
 
     @GetMapping("/create")
     public String createRide(HttpSession session,
@@ -93,7 +88,7 @@ public class RideController {
             return "redirect:/rides";
         }
 
-        // The driver is always the person who is logged in, never something from the form
+       
         rideDTO.setDriverId(currentUser(session).getUserId());
 
         if (result.hasErrors()) {
@@ -112,7 +107,7 @@ public class RideController {
         return "redirect:/rides";
     }
 
-    // ---------- EDIT (Driver only, and only their own ride) ----------
+  
 
     @GetMapping("/edit/{id}")
     public String editRideForm(@PathVariable String id,
@@ -194,9 +189,7 @@ public class RideController {
         return "redirect:/rides";
     }
 
-    // ---------- helpers ----------
-
-    // Bikes a driver can pick for a new ride: the ones in service
+   
     private List<Bike> activeBikes() {
         List<Bike> result = new ArrayList<>();
         try {
