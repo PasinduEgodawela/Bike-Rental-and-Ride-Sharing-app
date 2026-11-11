@@ -46,10 +46,7 @@ public class RideService {
         return null;
     }
 
-    // ---------- create ----------
-
-    // A bike carries the driver and one passenger, so every ride has exactly one passenger seat.
-    // The seat count is never typed in a form.
+    
     public static final int PASSENGER_SEATS = 1;
 
     public synchronized Ride createRide(RideDTO dto) {
@@ -57,7 +54,6 @@ public class RideService {
 
         List<Ride> rides = fileHandler.loadRides();
 
-        // The order must match the Ride constructor: rideId, driverId, bikeId, ...
         Ride ride = new Ride(
                 fileHandler.nextId(rides),
                 dto.getDriverId().trim(),
@@ -75,7 +71,6 @@ public class RideService {
         return ride;
     }
 
-    // Throws IllegalArgumentException with a message the page can show
     private void validateNewRide(RideDTO dto) {
         if (isBlank(dto.getBikeId())) {
             throw new IllegalArgumentException("Please enter a bike ID.");
@@ -111,10 +106,7 @@ public class RideService {
         }
     }
 
-    // ---------- update ----------
-
-    // Only the time and the status can change. The seat count only changes when a request is
-    // approved (reserveSeat). Throws IllegalArgumentException for bad values.
+   
     public synchronized Ride updateRide(String rideId, RideDTO dto) {
         if (dto.getRideTime() == null) {
             throw new IllegalArgumentException("Please choose the ride time.");
@@ -131,7 +123,7 @@ public class RideService {
             if (ride.getRideId().equals(rideId)) {
                 ride.setRideTime(dto.getRideTime());
 
-                // Open / Full follow the number of free seats. Cancelled / Completed are kept as chosen.
+              
                 if ("Open".equals(wanted) || "Full".equals(wanted)) {
                     ride.setStatus(ride.getAvailableSeats() == 0 ? "Full" : "Open");
                 } else {
@@ -145,8 +137,7 @@ public class RideService {
         return null;
     }
 
-    // One seat is taken when a ride request is approved.
-    // Throws IllegalArgumentException if the ride is missing, not open or full.
+
     public synchronized void reserveSeat(String rideId) {
         List<Ride> rides = fileHandler.loadRides();
 
@@ -166,7 +157,7 @@ public class RideService {
         throw new IllegalArgumentException("Ride " + rideId + " does not exist.");
     }
 
-    // ---------- delete ----------
+
 
     public synchronized void deleteRide(String rideId) {
         List<Ride> rides = fileHandler.loadRides();
@@ -180,7 +171,6 @@ public class RideService {
         }
     }
 
-    // When a Driver account is deleted, the rides assigned to that driver go too
     public synchronized void deleteRidesOfDriver(String driverId) {
         List<Ride> rides = fileHandler.loadRides();
         List<Ride> kept = new ArrayList<>();
@@ -196,9 +186,7 @@ public class RideService {
         }
     }
 
-    // ---------- lists ----------
-
-    // DRIVER: rides assigned to this driver
+  
     public List<Ride> getRidesForDriver(String userId) {
         List<Ride> result = new ArrayList<>();
         for (Ride ride : fileHandler.loadRides()) {
@@ -209,7 +197,6 @@ public class RideService {
         return result;
     }
 
-    // CUSTOMER: rides on the bikes this customer has booked
     public List<Ride> getRidesForCustomer(String userId) {
         List<Ride> result = new ArrayList<>();
         BookingDTO[] bookings = bookingService.getBookingByUserId(userId).getBookings();
@@ -229,13 +216,12 @@ public class RideService {
         return result;
     }
 
-    // A Driver may only change their own rides
+   
     public boolean driverOwns(String userId, String rideId) {
         Ride ride = getRideById(rideId);
         return ride != null && userId != null && userId.equals(ride.getDriverId());
     }
 
-    // Rides on this bike that still have a free seat and have not started yet
     public List<Ride> getOpenRidesForBike(String bikeId) {
         List<Ride> result = new ArrayList<>();
 
@@ -250,7 +236,6 @@ public class RideService {
         return result;
     }
 
-    // rideId -> bookingId (customer's own booking for the ride's bike)
     public Map<String, String> getBookingIdsForRides(String userId, List<Ride> rides) {
 
         Map<String, String> map = new HashMap<>();
