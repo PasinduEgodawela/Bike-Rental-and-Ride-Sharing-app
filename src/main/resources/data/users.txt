@@ -1,0 +1,2 @@
+U001|u1|u1@gmail.com|00000000|000000000|1222 uduwawala|Customer
+U038|a1|admin@gmail.com|admin123|071234567|hadawathe|Admin

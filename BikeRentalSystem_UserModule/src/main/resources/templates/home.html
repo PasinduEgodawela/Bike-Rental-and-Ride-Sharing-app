@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>RIDEX | Home</title>
+
+    <style>
+        :root {
+            --bg: #0e0e10;
+            --card: #161618;
+            --line: #2a2a2d;
+            --tx: #f4f4f5;
+            --mu: #9a9aa2;
+            --red: #dc2626;
+            --red2: #b91c1c;
+            --red3: #ff4545;
+            --am: #f5b82e;
+            --gr: #34d399;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--tx);
+            font: 16px/1.5 Inter, "Segoe UI", system-ui, Arial, sans-serif;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px 64px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Animated Background */
+
+        .bike-animation {
+            position: fixed;
+            left: -150px;
+            bottom: 12%;
+            z-index: 0;
+            pointer-events: none;
+            animation: bikeRide 13s linear infinite;
+            opacity: 0.20;
+        }
+
+        .bike-animation span {
+            display: block;
+            font-size: clamp(65px, 10vw, 115px);
+            filter: drop-shadow(0 0 18px var(--red));
+            animation: bikeBounce .5s ease-in-out infinite alternate;
+        }
+
+        .road {
+            position: fixed;
+            bottom: 11%;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(
+                    90deg,
+                    transparent,
+                    var(--red),
+                    transparent
+            );
+            opacity: .25;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        @keyframes bikeRide {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(calc(100vw + 300px));
+            }
+        }
+
+        @keyframes bikeBounce {
+            from {
+                transform: translateY(0) rotate(-2deg);
+            }
+
+            to {
+                transform: translateY(-5px) rotate(2deg);
+            }
+        }
+
+        /* Sign In */
+
+        .home-top {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 24px 0 10px;
+        }
+
+        .sign-in-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 44px;
+            padding: 0 26px;
+            background: transparent;
+            border: 1px solid var(--red);
+            border-radius: 8px;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: .2s;
+        }
+
+        .sign-in-btn:hover {
+            background: var(--red);
+            box-shadow: 0 0 18px rgba(220, 38, 38, .4);
+        }
+
+        /* Headings */
+
+        h1, .page-title {
+            margin: 0;
+            font-size: clamp(2.2rem, 6vw, 3.6rem);
+            line-height: 1.05;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        h2, .card-title {
+            margin: 0;
+            font-size: 1.25rem;
+        }
+
+        h3 {
+            margin: 0;
+            font-size: 1.15rem;
+        }
+
+        /* Cards */
+
+        .card {
+            background: rgba(22, 22, 24, .92);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 24px;
+            backdrop-filter: blur(8px);
+            transition: .25s;
+        }
+
+        .card:hover {
+            border-color: var(--red);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(220, 38, 38, .10);
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            align-items: start;
+        }
+
+        /* Hero Section */
+
+        .hero {
+            position: relative;
+            min-height: 470px;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 40px;
+            align-items: center;
+            margin: 20px 0 48px;
+            padding: 55px 45px;
+            overflow: hidden;
+            border: 1px solid rgba(220, 38, 38, .2);
+            border-radius: 18px;
+            background:
+                    radial-gradient(
+                            circle at 85% 50%,
+                            rgba(220, 38, 38, .16),
+                            transparent 40%
+                    ),
+                    linear-gradient(120deg, #161618, #0e0e10);
+        }
+
+        /* RIDEX Logo */
+
+        .hero-logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 250px;
+        }
+
+        .logo-text {
+            font-size: clamp(3.5rem, 8vw, 6.5rem);
+            font-weight: 900;
+            letter-spacing: 5px;
+            color: #fff;
+            text-shadow: 0 0 25px rgba(220, 38, 38, .35);
+        }
+
+        .logo-text span {
+            color: var(--red3);
+        }
+
+        .logo-line {
+            width: 75%;
+            height: 4px;
+            margin: 12px auto 0;
+            background: var(--red);
+            border-radius: 10px;
+            box-shadow: 0 0 15px var(--red);
+        }
+
+        /* Hero Content */
+
+        .hero-content {
+            max-width: 650px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.7rem, 6vw, 4.5rem);
+        }
+
+        .hero h1 span {
+            display: block;
+            color: var(--red3);
+        }
+
+        .hero p {
+            color: var(--mu);
+            margin: 24px 0 0;
+            font-size: 1.1rem;
+        }
+
+        /* Login and Register Buttons */
+
+        .hero-buttons {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        /* Buttons */
+
+        .btn, .b2 {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 46px;
+            padding: 0 26px;
+            border-radius: 8px;
+            font: inherit;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            border: 1px solid var(--red);
+            background: var(--red);
+            color: #fff;
+            transition: .2s;
+        }
+
+        .btn:hover {
+            background: var(--red2);
+            box-shadow: 0 0 15px rgba(220, 38, 38, .25);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border-color: var(--line);
+            color: var(--tx);
+            font-weight: 500;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--red);
+            background: rgba(220, 38, 38, .10);
+        }
+
+        .btn:focus-visible,
+        a:focus-visible {
+            outline: 3px solid #fff;
+            outline-offset: 2px;
+        }
+
+        /* Features */
+
+        .feature p,
+        .step p {
+            color: var(--mu);
+            margin: 8px 0 16px;
+        }
+
+        .section-title {
+            margin: 48px 0 20px;
+            font-size: 1.5rem;
+        }
+
+        /* Steps */
+
+        .step .num {
+            color: var(--red3);
+            font-size: 2.6rem;
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        .step h3 {
+            margin-top: 16px;
+        }
+
+        /* Responsive */
+
+        @media (max-width: 800px) {
+
+            .grid-3 {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                min-height: auto;
+                padding: 30px 24px 40px;
+                text-align: center;
+            }
+
+            .hero-logo {
+                min-height: 130px;
+            }
+
+            .logo-text {
+                font-size: clamp(3rem, 12vw, 5rem);
+            }
+
+            .hero h1 {
+                font-size: clamp(2.8rem, 12vw, 4rem);
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .bike-animation {
+                bottom: 8%;
+            }
+
+            .road {
+                bottom: 7%;
+            }
+        }
+
+        /* Accessibility */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            .bike-animation,
+            .bike-animation span {
+                animation: none;
+            }
+
+            .card {
+                transition: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- Animated Bike Background -->
+
+<div class="bike-animation" aria-hidden="true">
+    <span>🏍️</span>
+</div>
+
+<div class="road" aria-hidden="true"></div>
+
+<div class="container">
+
+
+    <!-- Hero Section -->
+
+    <section class="hero">
+
+        <!-- RIDEX Logo - Left Side -->
+
+        <div class="hero-logo">
+            <div>
+                <div class="logo-text">
+                    RID<span>EX</span>
+                </div>
+                <div class="logo-line"></div>
+            </div>
+        </div>
+
+        <!-- Hero Content - Right Side -->
+
+        <div class="hero-content">
+
+            <h1>
+                Ride more.
+                <span>Own less.</span>
+            </h1>
+
+            <p>
+                Rent a bike, list yours, or offer a shared ride.
+                Discover your next journey with RIDEX.
+            </p>
+
+            <!-- Login and Register Buttons -->
+
+            <div class="hero-buttons">
+
+                <a class="btn" th:href="@{/users/login}">
+                    Login
+                </a>
+
+                <a class="btn btn-outline" th:href="@{/users/register}">
+                    Register
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Three Quick Actions -->
+
+    <section class="grid-3">
+
+        <div class="card feature">
+
+            <h3>Rent a bike</h3>
+
+            <p>
+                Motorbikes, scooters and bicycles from local owners.
+            </p>
+
+            <a class="btn btn-outline" th:href="@{/bikes}">
+                See bikes
+            </a>
+
+        </div>
+
+        <div class="card feature">
+
+            <h3>Share a ride</h3>
+
+            <p>
+                Join a driver's trip or publish your own.
+            </p>
+
+            <a class="btn btn-outline" th:href="@{/rides}">
+                See rides
+            </a>
+
+        </div>
+
+        <div class="card feature">
+
+            <h3>List your bike</h3>
+
+            <p>
+                Add your bike and approve requests in order.
+            </p>
+
+            <a th:if="${session.loggedInUser == null}"
+               class="btn btn-outline"
+               th:href="@{/users/register}">
+                Create account
+            </a>
+
+            <a th:if="${session.loggedInUser != null and session.loggedInUser.role != 'Admin' and session.loggedInUser.role != 'Owner'}"
+               class="btn btn-outline"
+               th:href="@{/bikes}">
+                Browse bikes
+            </a>
+
+            <a th:if="${session.loggedInUser != null and (session.loggedInUser.role == 'Admin' or session.loggedInUser.role == 'Owner')}"
+               class="btn btn-outline"
+               th:href="@{/bikes/add}">
+                Add a bike
+            </a>
+
+        </div>
+
+    </section>
+
+    <!-- How It Works -->
+
+    <h2 class="section-title">How it works</h2>
+
+    <section class="grid-3">
+
+        <div class="card step">
+
+            <div class="num">01</div>
+
+            <h3>Pick a bike</h3>
+
+            <p>
+                Browse available bikes and choose your favourite.
+            </p>
+
+        </div>
+
+        <div class="card step">
+
+            <div class="num">02</div>
+
+            <h3>Book and pay</h3>
+
+            <p>
+                Make your booking and get ready for your journey.
+            </p>
+
+        </div>
+
+        <div class="card step">
+
+            <div class="num">03</div>
+
+            <h3>Ride and review</h3>
+
+            <p>
+                Enjoy your ride and review your experience.
+            </p>
+
+        </div>
+
+    </section>
+
+</div>
+
+</body>
+</html>
+
