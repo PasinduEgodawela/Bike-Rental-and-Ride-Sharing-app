@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<!-- Owner request queue (FIFO). Approve / Reject always act on the front request. -->
+<div class="card" th:fragment="queue(items)" th:with="pending=${items.?[status == 'Pending']}">
+  <div class="row">
+    <h2>Request queue (owner)</h2>
+    <span class="t wt" th:text="${#lists.size(pending)} + ' pending'">3 pending</span>
+  </div>
+  <p class="m mt" th:if="${#lists.isEmpty(pending)}">No pending requests.</p>
+  <div class="li" th:each="r, s : ${pending}">
+    <div class="row">
+      <b th:text="${r.requestId} + ' · Passenger ' + ${r.passengerId}">RQ001 · Passenger U001</b>
+      <span class="t ok" th:if="${s.first}">Front</span>
+    </div>
+    <p class="m" th:text="${r.bookingId} + ' · sent ' + ${#temporals.format(r.requestDate, 'd MMM')}">BK001 · sent 4 Nov</p>
+    <div class="row" th:if="${s.first}">
+      <form th:action="@{/rideRequests/approve/{id}(id=${r.requestId})}" method="post"><button class="btn" type="submit">Approve</button></form>
+      <form th:action="@{/rideRequests/reject/{id}(id=${r.requestId})}" method="post"><button class="b2" type="submit">Reject</button></form>
+    </div>
+  </div>
+</div>
+</body>
+</html>
