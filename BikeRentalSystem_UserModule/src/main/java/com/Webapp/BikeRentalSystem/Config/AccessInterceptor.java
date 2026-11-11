@@ -6,17 +6,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-/**
- * One place that checks "is the user logged in" and "does the role allow this page"
- * before any controller runs.
- *
- * - Public pages: home, login, register, logout and the bike list.
- * - Everything else needs a login.
- * - Some pages are also limited to one role (see rolesFor below).
- *
- * Checks that depend on WHO owns a record (for example "only the owner can edit this booking")
- * are done in the services, because only they can read the record.
- */
+
 public class AccessInterceptor implements HandlerInterceptor {
 
     @Override
@@ -42,7 +32,7 @@ public class AccessInterceptor implements HandlerInterceptor {
 
         String[] allowed = rolesFor(path, method);
         if (allowed == null) {
-            return true;                    // any logged-in user
+            return true;                    
         }
 
         for (String role : allowed) {
@@ -64,7 +54,7 @@ public class AccessInterceptor implements HandlerInterceptor {
         return user instanceof User ? (User) user : null;
     }
 
-    // Pages anyone can open, logged in or not
+    
     private boolean isPublic(String path, String method) {
         if (path.equals("/") || path.equals("/error")) {
             return true;
@@ -72,21 +62,19 @@ public class AccessInterceptor implements HandlerInterceptor {
         if (path.equals("/users/login") || path.equals("/users/register") || path.equals("/users/logout")) {
             return true;
         }
-        // visitors can browse the bike list (the buttons on it depend on the role)
+        
         return path.equals("/bikes") && method.equals("GET");
     }
 
-    // The roles allowed on a page, or null when any logged-in user may open it
+    
     private String[] rolesFor(String path, String method) {
 
-        // adding, editing and deleting bikes: an Owner lists bikes (BikeController checks that an
-        // Owner only changes their own), the Admin manages all
+        
         if (path.startsWith("/bikes")) {
             return new String[]{"Admin", "Owner"};
         }
 
-        // ride requests: a customer joins a ride and sees their own requests;
-        // approving, rejecting and deleting are for the Admin
+        
         if (path.equals("/rideRequests") || path.equals("/rideRequests/create") || path.equals("/rideRequests/save")) {
             return new String[]{"Admin", "Customer"};
         }
@@ -94,7 +82,7 @@ public class AccessInterceptor implements HandlerInterceptor {
             return new String[]{"Admin"};
         }
 
-        // bookings: customers make them, only an Admin completes them
+        
         if (path.equals("/bookings/create") || path.equals("/bookings/new") || path.equals("/bookings/save")) {
             return new String[]{"Customer"};
         }
@@ -102,8 +90,7 @@ public class AccessInterceptor implements HandlerInterceptor {
             return new String[]{"Admin"};
         }
 
-        // rides: a Driver publishes and edits their own rides (RideController checks "their own"),
-        // the Admin deletes
+       
         if (path.startsWith("/rides/delete")) {
             return new String[]{"Admin"};
         }
@@ -111,7 +98,7 @@ public class AccessInterceptor implements HandlerInterceptor {
             return new String[]{"Driver"};
         }
 
-        // payments: customers pay, an Admin manages the records
+        
         if (path.equals("/payments")) {
             return new String[]{"Admin", "Customer"};
         }
@@ -122,7 +109,7 @@ public class AccessInterceptor implements HandlerInterceptor {
             return new String[]{"Customer"};
         }
 
-        // GET /users?email=... tells you a user's role, so only an Admin may use it
+        
         if (path.equals("/users")) {
             return new String[]{"Admin"};
         }
