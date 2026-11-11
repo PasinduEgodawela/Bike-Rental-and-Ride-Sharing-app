@@ -107,9 +107,9 @@ public class Ride {
                 + availableSeats + "|" + TextClean.clean(status);
     }
 
-    // Throws IllegalArgumentException when the line is not a valid ride record.
+    
     public static Ride fromFileString(String line) {
-        // The pipe character must be escaped for split()
+      
         String[] p = line.split("\\|", -1);
         if (p.length != 9) {
             throw new IllegalArgumentException("Ride record must contain nine fields");
