@@ -13,7 +13,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * File format (one request per line):
+ * requestId|bookingId|passengerId|bikeId|requestDate|status|rideId
+ * An older line with only six fields (no rideId) can still be read.
+ */
 @Component
 public class RideRequestFileHandler {
 
@@ -32,6 +36,7 @@ public class RideRequestFileHandler {
         }
     }
 
+    // Every non-empty line of the file, exactly as it is stored
     private List<String> readRawLines() throws IOException {
         List<String> lines = new ArrayList<>();
         for (String line : Files.readAllLines(file, StandardCharsets.UTF_8)) {
@@ -93,7 +98,7 @@ public class RideRequestFileHandler {
         return saved;
     }
 
-
+    // Replaces one request. Lines that cannot be read are written back unchanged.
     public synchronized boolean update(RideRequest update) throws IOException {
 
         List<String> lines = readRawLines();
@@ -119,6 +124,7 @@ public class RideRequestFileHandler {
         return true;
     }
 
+    // Removes one request. Lines that cannot be read are written back unchanged.
     public synchronized boolean delete(String id) throws IOException {
 
         List<String> lines = readRawLines();
@@ -155,6 +161,7 @@ public class RideRequestFileHandler {
                 + TextClean.clean(request.getRideId());
     }
 
+    // Returns null when the line is not a valid ride request
     private RideRequest parse(String line) {
 
         String[] request = line.split("\\|", -1);

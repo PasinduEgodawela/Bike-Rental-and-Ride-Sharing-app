@@ -1,6 +1,6 @@
 package com.Webapp.BikeRentalSystem.Controller;
 
- import com.Webapp.BikeRentalSystem.DTO.BookingDTO;
+import com.Webapp.BikeRentalSystem.DTO.BookingDTO;
 import com.Webapp.BikeRentalSystem.DTO.BookingResponse;
 import com.Webapp.BikeRentalSystem.Model.Bike;
 import com.Webapp.BikeRentalSystem.Model.User;
@@ -23,7 +23,7 @@ import java.util.List;
 @RequestMapping("/bookings")
 public class BookingController {
 
-  private final BookingService bookingService;
+    private final BookingService bookingService;
     private final BikeService bikeService;
 
     public BookingController(BookingService bookingService, BikeService bikeService) {
@@ -233,5 +233,5 @@ public class BookingController {
         }
 
         return "redirect:/bookings";
-    }*/
+    }
 }
