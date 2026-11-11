@@ -1,0 +1,92 @@
+:root{
+    --line:#2a2a2d;
+    --tx:#f4f4f5;
+    --mu:#9a9aa2;
+    --red:#dc2626;
+    --red2:#b91c1c;
+    --red3:#ff4545;
+}
+
+.nav{
+    display:flex;
+    align-items:center;
+    gap:28px;
+    padding:22px 24px;
+    border-bottom:1px solid var(--line);
+    margin-bottom:40px;
+    width:100%;
+    box-sizing:border-box;
+}
+
+.nav a{
+    color:var(--mu);
+    text-decoration:none;
+    padding:4px 0;
+    border-bottom:2px solid transparent;
+    transition:0.2s;
+    white-space:nowrap;
+}
+
+.nav a:hover{color:var(--tx)}
+
+.nav a.on{
+    color:var(--tx);
+    border-color:var(--red);
+}
+
+.nav .logo{
+    color:var(--tx);
+    font-size:2rem;
+    font-weight:800;
+    border:0;
+    padding:0;
+    text-decoration:none;
+}
+
+.logo b{color:var(--red3)}
+
+/* profile button on the right */
+.nav .profile-btn{
+    margin-left:auto;
+    color:#fff;
+    padding:0 24px;
+    min-height:44px;
+    border:1px solid var(--red);
+    border-radius:8px;
+    background:var(--red);
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    text-decoration:none;
+    font-weight:600;
+    transition:0.2s;
+    white-space:nowrap;
+    border-bottom:1px solid var(--red);
+}
+
+.nav .profile-btn:hover{
+    background:var(--red2);
+    border-color:var(--red2);
+    color:#fff;
+}
+
+@media(max-width:800px){
+    .nav{
+        gap:14px;
+        flex-wrap:wrap;
+    }
+    .nav .profile-btn{
+        margin-left:auto;
+    }
+}
+
+@media(max-width:480px){
+    .nav{
+        gap:12px;
+        padding:16px;
+    }
+    .nav .logo{
+        width:100%;
+    }
+}
+ 
