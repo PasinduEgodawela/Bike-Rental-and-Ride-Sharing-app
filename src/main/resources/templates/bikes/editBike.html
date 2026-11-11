@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RideX | Edit Bike</title>
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #0e0e10;
+            color: white;
+            padding: 30px 15px;
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: 30px auto;
+            background: #161618;
+            padding: 30px;
+            border-radius: 12px;
+        }
+
+        h1 { margin-bottom: 25px; }
+        h1 span { color: #dc2626; }
+
+        label {
+            display: block;
+            margin: 15px 0 8px;
+            color: #ccc;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #38383e;
+            border-radius: 7px;
+            background: #0e0e10;
+            color: white;
+            outline: none;
+        }
+
+        input:focus, select:focus {
+            border-color: #dc2626;
+        }
+
+        .btn {
+            padding: 12px 18px;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 22px;
+        }
+
+        .submit {
+            background: #dc2626;
+            color: white;
+        }
+
+        .back {
+            background: #303036;
+            color: white;
+            margin-left: 8px;
+        }
+
+        .error {
+            background: #451a1a;
+            color: #fca5a5;
+            padding: 12px;
+            border-radius: 7px;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="form-container">
+
+    <h1>Edit <span>Bike</span></h1>
+
+    <div th:if="${error != null}" class="error"
+         th:text="${error}"></div>
+
+    <form th:action="@{/bikes/edit}" method="post">
+
+        <label>Bike ID</label>
+        <input type="text" name="bikeId"
+               th:value="${bike.bikeId}" readonly required>
+
+        <label>Bike Model</label>
+        <input type="text" name="model"
+               th:value="${bike.model}" required>
+
+        <label>Bike Type</label>
+        <select name="type" required>
+            <option value="Motorbike"
+                    th:selected="${bike.type == 'Motorbike'}">Motorbike</option>
+            <option value="Scooter"
+                    th:selected="${bike.type == 'Scooter'}">Scooter</option>
+            <option value="Bicycle"
+                    th:selected="${bike.type == 'Bicycle'}">Bicycle</option>
+        </select>
+
+        <label>Location</label>
+        <input type="text" name="location"
+               th:value="${bike.location}" required>
+
+        <label>Price Per Day (Rs.)</label>
+        <input type="number" name="pricePerDay"
+               th:value="${bike.pricePerDay}"
+               min="0.01" step="0.01" required>
+
+        <label>Availability</label>
+        <select name="available" required>
+            <option value="true"
+                    th:selected="${bike.available}">Available</option>
+            <option value="false"
+                    th:selected="${!bike.available}">Not Available</option>
+        </select>
+
+        <label>Bike Status</label>
+        <select name="status" required>
+            <option value="Active"
+                    th:selected="${bike.status == 'Active'}">Active</option>
+            <option value="Maintenance"
+                    th:selected="${bike.status == 'Maintenance'}">Maintenance</option>
+        </select>
+
+        <button type="submit" class="btn submit">Update Bike</button>
+
+        <a th:href="@{/bikes}" class="btn back">Cancel</a>
+
+    </form>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+U001|Pasindu Egodawela|egodawelapasindu@gmail.com|p12345|071234567|nkrefnenfrkjnkj|Admin
+U002|customer1|customer1@gmail.com|c1@12345|071123456|bhjjjbj|Customer
+U003|Driver1|driver1@gmail.com|d1@12345|07123456|njkjankjkn|Driver
+U004|Driver2|driver2@gmail.com|d2@12345|07123456|jiowjoiajsdiouqw|Driver
+U005|customer2|customer2@gmail.com|c2@12345|07123456|hiodqwjoo|Customer
+U006|owner1|owner1@gmail.com|owner123|0771234567|Kandy|Owner
+U007|Nimal Jayasinghe|nimal.jayasinghe@example.com|Nimal@2026|0772345678|45 Matara Road, Galle|Owner
+U008|Kumar Selvarajah|kumar.selvarajah@example.com|Kumar@2026|0773456789|12 Hospital Road, Jaffna|Owner
+U009|Chamari Perera|chamari.perera@example.com|Chamari@2026|0774567890|8 Maithripala Mw, Anuradhapura|Owner
+U010|Farook Mohamed|farook.mohamed@example.com|Farook@2026|0765678901|21 Main Street, Batticaloa|Owner
+U011|Dilani Rathnayake|dilani.rathnayake@example.com|Dilani@2026|0716789012|77 Galle Road, Colombo 06|Owner
+U012|Sunil Wickramasinghe|sunil.wickramasinghe@example.com|Sunil@2026|0707890123|3 Ella Road, Badulla|Owner
+U013|Kasun Fernando|kasun.fernando@example.com|Kasun@2026|0778901234|14 Sea Street, Negombo|Driver
+U014|Ruwan Bandara|ruwan.bandara@example.com|Ruwan@2026|0779012345|32 Peradeniya Road, Kandy|Driver
+U015|Lakmal Silva|lakmal.silva@example.com|Lakmal@2026|0711234098|9 Beach Road, Matara|Driver
+U016|Thevan Rajendran|thevan.rajendran@example.com|Thevan@2026|0762345109|5 KKS Road, Jaffna|Driver
+U017|Saman Kumara|saman.kumara@example.com|Saman@2026|0723456210|60 Station Road, Anuradhapura|Driver
+U018|Imran Hussain|imran.hussain@example.com|Imran@2026|0754567321|18 Lady Manning Dr, Batticaloa|Driver
+U019|Pradeep Gunawardena|pradeep.gunawardena@example.com|Pradeep@2026|0785678432|11 Bus Stand Rd, Badulla|Driver
+U020|Amaya Senanayake|amaya.senanayake@example.com|Amaya@2026|0776789543|27 Temple Road, Kurunegala|Customer
+U021|Emma Wilson|emma.wilson@example.com|Emma@2026|+447911123456|Tourist, Colombo Fort Hotel|Customer
+U022|Tharindu Peiris|tharindu.peiris@example.com|Tharindu@2026|0717890654|16 Lake Drive, Kandy|Customer
+U023|Shanika Dissanayake|shanika.dissanayake@example.com|Shanika@2026|0728901765|40 Hill Street, Nuwara Eliya|Customer
+U024|Lars Nielsen|lars.nielsen@example.com|Lars@2026|+4552123456|Tourist, Ella Mountain Lodge|Customer
+U025|Priya Nadarajah|priya.nadarajah@example.com|Priya@2026|0769012876|7 Point Pedro Rd, Jaffna|Customer
+U026|Dinesh Kumar|dinesh.kumar@example.com|Dinesh@2026|0750123987|23 Church Lane, Trincomalee|Customer
+U027|Nadeesha Gamage|nadeesha.gamage@example.com|Nadeesha@2026|0771239870|55 Kandy Road, Kurunegala|Customer
+U028|Rizwan Ahamed|rizwan.ahamed@example.com|Rizwan@2026|0782348761|9 Sea View, Puttalam|Customer
+U029|Sophie Martin|sophie.martin@example.com|Sophie@2026|+33612345678|Tourist, Unawatuna Beach Villa|Customer
+U030|Hasini Weerasinghe|hasini.weerasinghe@example.com|Hasini@2026|0703459872|31 High Level Rd, Nugegoda|Customer
+U031|Ashan Rodrigo|ashan.rodrigo@example.com|Ashan@2026|0714560983|6 Lagoon Road, Negombo|Customer
+U032|Vithya Sivakumar|vithya.sivakumar@example.com|Vithya@2026|0725671094|19 Stanley Road, Jaffna|Customer
+U033|Chathura Madushanka|chathura.madushanka@example.com|Chathura@2026|0736782105|88 Badulla Road, Monaragala|Customer
+U034|Anika Schmidt|anika.schmidt@example.com|Anika@2026|+4915123456789|Tourist, Arugam Bay Surf Camp|Customer
+U035|Mohamed Fazil|mohamed.fazil@example.com|Mohamed@2026|0747893216|14 Mosque Road, Kalmunai|Customer
+U036|Harsha Jayawardena|harsha.jayawardena@example.com|Harsha@2026|0758904327|72 Temple Rd, Ratnapura|Customer
+U037|Daniru Wickramasinghe|daniruofficial123@gmail.com|daniru123|0762151915|No 32/1, Nagasthenna Road|Customer
+U038|Anusara|admin@gmail.com|admin123|071234567|hadawathe|Admin

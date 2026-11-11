@@ -1,0 +1,12 @@
+RV001|U002|B001|5|good|2026-11-11
+RV002|U022|B014|5|Perfect for the hill roads, loved it|2026-11-09
+RV003|U030|B005|4|Good bike, pickup was easy|2026-11-10
+RV004|U021|B009|5|Excellent condition, would rent again|2026-11-10
+RV005|U025|B017|5|Smooth ride and a great bike|2026-11-10
+RV006|U035|B032|5|Perfect for the hill roads, loved it|2026-11-10
+RV007|U005|B002|3|Fine for a short trip|2026-11-11
+RV008|U031|B014|4|Comfortable and good value for the price|2026-11-11
+RV009|U023|B015|5|Smooth ride and a great bike|2026-11-11
+RV010|U024|B033|4|Comfortable and good value for the price|2026-11-11
+RV011|U027|B024|4|Ran well the whole trip|2026-11-11
+RV012|U029|B003|4|Good bike, pickup was easy|2026-11-11
