@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>My Rides | RIDEX</title>
+    <style>
+        :root{
+            --bg:#0e0e10;
+            --card:#161618;
+            --line:#2a2a2d;
+            --field:#0b0b0c;
+            --tx:#f4f4f5;
+            --mu:#9a9aa2;
+            --red:#dc2626;
+            --red2:#b91c1c;
+            --red3:#ff4545;
+            --am:#f5b82e;
+            --gr:#34d399
+        }
+        *{box-sizing:border-box}
+        body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 Inter,"Segoe UI",system-ui,Arial,sans-serif}
+        .pg,.container{max-width:1200px;margin:0 auto;padding:0 24px 64px}
+
+        /* NAVBAR */
+        .nav{display:flex;align-items:center;gap:28px;padding:22px 24px;border-bottom:1px solid var(--line);margin-bottom:40px;width:100%}
+        .nav a{color:var(--mu);text-decoration:none;padding:4px 0;border-bottom:2px solid transparent;transition:0.2s;white-space:nowrap}
+        .nav a:hover{color:var(--tx)}
+        .nav a.on{color:var(--tx);border-color:var(--red)}
+        .nav .logo{color:var(--tx);font-size:2rem;font-weight:800;border:0;padding:0;text-decoration:none}
+        .logo b{color:var(--red3)}
+        .nav .profile-btn{margin-left:auto;color:#fff;padding:0 24px;min-height:44px;border:1px solid var(--red);border-radius:8px;background:var(--red);display:inline-flex;align-items:center;justify-content:center;text-decoration:none;font-weight:600;transition:0.2s;white-space:nowrap;border-bottom:1px solid var(--red)}
+        .nav .profile-btn:hover{background:var(--red2);border-color:var(--red2);color:#fff}
+
+        h1,.page-title{margin:0;font-size:clamp(2.2rem,6vw,3.6rem);line-height:1.05;font-weight:800;text-transform:uppercase}
+        h2,.card-title{margin:0;font-size:1.25rem}
+        h3{margin:0;font-size:1.15rem}
+        .sub{color:var(--mu);margin:8px 0 28px}
+        .card .sub{margin:8px 0 20px}
+        .m{color:var(--mu);font-size:.92rem;margin:4px 0 0}
+
+        .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px}
+        .g,.grid-2,.grid-3,.grid-profile{display:grid;gap:24px;align-items:start}
+        .c2,.grid-2{grid-template-columns:1fr 1fr}
+        .grid-3{grid-template-columns:repeat(3,1fr)}
+        .grid-profile{grid-template-columns:1fr 2fr}
+        .mt{margin-top:16px}
+        .row{display:flex;justify-content:space-between;align-items:center;gap:12px}
+        .row>.field{flex:1}
+        form{margin:0}
+
+        label{display:block;color:var(--mu);font-size:.9rem;margin-top:16px}
+        label input{display:block;width:100%;margin-top:8px}
+        .field{margin-top:16px}
+        .field label{margin:0 0 8px}
+        .field input,.field select,.field textarea{display:block;width:100%}
+        input,select,textarea{min-height:48px;padding:0 14px;background:var(--field);color:var(--tx);border:1px solid var(--line);border-radius:10px;font:inherit;color-scheme:dark}
+        textarea{padding:12px 14px;min-height:120px}
+        input:focus,select:focus,textarea:focus{outline:2px solid var(--red);outline-offset:1px}
+        input[readonly],input:disabled{opacity:.6}
+
+        .btn,.b2{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 22px;border-radius:8px;font:inherit;font-weight:600;text-decoration:none;cursor:pointer;border:1px solid var(--red);background:var(--red);color:#fff}
+        .btn:not(.btn-outline):not(.btn-danger-outline):hover{background:var(--red2)}
+        .b2,.btn-outline{background:transparent;border-color:var(--line);color:var(--tx);font-weight:500}
+        .b2{min-height:38px;padding:0 16px}
+        .b2:hover,.btn-outline:hover{border-color:#4a4a50;background:#1d1d20}
+        .btn-danger-outline{background:transparent;border-color:var(--red);color:#f87171}
+        .btn-danger-outline:hover{background:rgba(220,38,38,.15)}
+        .btn:focus-visible,.b2:focus-visible,a:focus-visible{outline:3px solid #fff;outline-offset:2px}
+        .acts{display:flex;gap:8px}
+
+        table{width:100%;border-collapse:collapse;margin-top:12px}
+        th{color:var(--mu);font-weight:400;font-size:.9rem;text-align:left;padding:10px 8px;border-bottom:1px solid var(--line)}
+        td{padding:14px 8px;border-bottom:1px solid var(--line)}
+        tr:last-child td{border-bottom:0}
+
+        .wt{color:var(--am)}
+        .ok{color:var(--gr)}
+        .no{color:#f87171}
+        .t{border:1px solid;border-radius:999px;padding:0 12px;font-size:.85rem}
+        .alert{background:rgba(220,38,38,.12);border:1px solid var(--red);color:#fca5a5;padding:12px 14px;border-radius:10px;margin-top:16px}
+        .form-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+
+        @media(max-width:800px){
+            .c2,.grid-2,.grid-3,.grid-profile{grid-template-columns:1fr}
+            .nav{gap:14px;flex-wrap:wrap}
+        }
+        @media(max-width:480px){
+            .nav{gap:12px;padding:16px}
+            .nav .logo{width:100%}
+        }
+        .field-error{display:block;color:#f87171;font-size:.85rem;margin-top:6px}
+    </style>
+</head>
+<body>
+<div th:replace="~{fragments/layout :: navbar('rides')}"></div>
+
+<div class="pg">
+    <div class="row" style="align-items:flex-end;flex-wrap:wrap">
+        <div>
+            <h1>My Rides</h1>
+            <p class="sub" style="margin-bottom:0">Rides that belong to you.</p>
+        </div>
+    </div>
+
+    <div class="card" style="overflow-x:auto;margin-top:28px">
+        <p class="m" th:if="${#lists.isEmpty(rides)}">You have no rides yet.</p>
+
+        <table th:unless="${#lists.isEmpty(rides)}">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Bike</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Seats</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="r : ${rides}">
+                <td th:text="${r.rideId}">R001</td>
+                <td th:text="${r.bikeId}">B001</td>
+                <td th:text="${r.startLocation}">Colombo</td>
+                <td th:text="${r.destination}">Kandy</td>
+                <td th:text="${#temporals.format(r.rideDate,'dd MMM yyyy')}">-</td>
+                <td th:text="${#temporals.format(r.rideTime,'hh:mm a')}">-</td>
+                <td th:text="${r.availableSeats}">0</td>
+                <td>
+                    <span class="t"
+                          th:classappend="${r.status == 'Open'} ? 'ok' : (${r.status == 'Full'} ? 'wt' : 'no')"
+                          th:text="${r.status}">Open</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
+
