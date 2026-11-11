@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/my-part/my-part.iml" filepath="$PROJECT_DIR$/my-part/my-part.iml" />
+      <module fileurl="file://$PROJECT_DIR$/shared-files-edit-carefully/shared-files-edit-carefully.iml" filepath="$PROJECT_DIR$/shared-files-edit-carefully/shared-files-edit-carefully.iml" />
+    </modules>
+  </component>
+</project>
