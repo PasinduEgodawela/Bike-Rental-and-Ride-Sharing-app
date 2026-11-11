@@ -20,14 +20,12 @@ public class UserService {
         this.fileHandler = fileHandler;
     }
 
-    // Register: unique email, auto-generate userId, save.
-    // The role can be Customer or Driver. Admin accounts cannot be created here.
+    
     public synchronized User registerUser(RegisterDTO dto) {
         String role = chooseRole(dto.getRole());
 
         String email = dto.getEmail().trim();
-        // These two are used to sign in, so they are rejected (not silently changed)
-        // if they contain a character that cannot be stored.
+       
         rejectUnsafe("Email", email);
         rejectUnsafe("Password", dto.getPassword());
 
@@ -52,7 +50,7 @@ public class UserService {
         return u;
     }
 
-    // Customer is the default. Driver and Owner are allowed. Anything else (Admin) is refused.
+    
     private String chooseRole(String role) {
         if (role == null || role.isBlank() || role.equalsIgnoreCase("Customer")) {
             return "Customer";
@@ -66,7 +64,7 @@ public class UserService {
         throw new IllegalArgumentException("Please choose Customer, Driver or Owner as the role");
     }
 
-    // A value that would change when saved (it has a | or a line break, or spaces at the ends)
+   
     private void rejectUnsafe(String label, String value) {
         if (value == null || !value.equals(TextClean.clean(value))) {
             throw new IllegalArgumentException(label
@@ -74,7 +72,7 @@ public class UserService {
         }
     }
 
-    // Login: email + password must match
+ 
     public User loginUser(LoginDTO dto) {
         if (dto.getEmail() == null || dto.getPassword() == null) {
             throw new IllegalArgumentException("Invalid email or password");
@@ -91,7 +89,7 @@ public class UserService {
         throw new IllegalArgumentException("Invalid email or password");
     }
 
-    // Update: own account only, or Admin for anyone
+
     public synchronized User updateUser(String id, UserUpdateDTO dto, User loggedIn) {
         if (!loggedIn.getUserId().equals(id) && !"Admin".equals(loggedIn.getRole())) {
             throw new SecurityException("You can only update your own account");
@@ -125,7 +123,6 @@ public class UserService {
         return target;
     }
 
-    // Delete: own account only, or Admin for anyone. The last Admin can never be deleted.
     public synchronized void deleteUser(String id, User loggedIn) {
         if (!loggedIn.getUserId().equals(id) && !"Admin".equals(loggedIn.getRole())) {
             throw new SecurityException("You can only delete your own account");
@@ -154,7 +151,6 @@ public class UserService {
         fileHandler.saveUsers(users);
     }
 
-    // Logout: invalidate session
     public void logOutUser(HttpSession session) {
         session.invalidate();
     }
