@@ -16,11 +16,8 @@ public class UserFileHandler {
     public UserFileHandler(FileHandler fileHandler,
                            @Value("${user.file.path}") String filePath) {
         this.fileHandler = fileHandler;
-        this.path = filePath;          // the path from application.properties
+        this.path = filePath;          
     }
-
-    // A line that cannot be read is skipped (and printed), so one bad line
-    // does not stop every login.
     public List<User> loadUsers() {
         List<User> users = new ArrayList<>();
         for (String line : fileHandler.readLines(path)) {
@@ -33,8 +30,7 @@ public class UserFileHandler {
         return users;
     }
 
-    // Writes the users back. Lines that could not be read are kept at the end,
-    // so saving never deletes a record just because it was damaged.
+    
     public void saveUsers(List<User> users) {
         List<String> lines = new ArrayList<>();
         for (User u : users) {
