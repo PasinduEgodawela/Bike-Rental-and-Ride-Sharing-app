@@ -18,7 +18,7 @@ public class RideDTO{
     @NotNull(message = "Please choose a time.")
     private LocalTime rideTime;
 
-    // Not typed in any form: every ride has one passenger seat (see RideService.PASSENGER_SEATS)
+    
     private int availableSeats;
     private String status;
 
