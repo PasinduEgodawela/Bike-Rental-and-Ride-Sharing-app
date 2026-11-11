@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Reviews | RIDEX</title>
+    <style>
+        :root{--bg:#0e0e10;--card:#161618;--line:#2a2a2d;--field:#0b0b0c;--tx:#f4f4f5;--mu:#9a9aa2;--red:#dc2626;--red2:#b91c1c;--red3:#ff4545;--am:#f5b82e;--gr:#34d399}
+        *{box-sizing:border-box}
+        body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 Inter,"Segoe UI",system-ui,Arial,sans-serif}
+        .pg{max-width:1200px;margin:0 auto;padding:0 24px 64px}
+        .nav{display:flex;align-items:center;gap:28px;padding:22px 24px;border-bottom:1px solid var(--line);margin-bottom:40px;width:100%}
+        .nav a{color:var(--mu);text-decoration:none;padding:4px 0;border-bottom:2px solid transparent;white-space:nowrap}
+        .nav a:hover{color:var(--tx)}
+        .nav a.on{color:var(--tx);border-color:var(--red)}
+        .nav .logo{color:var(--tx);font-size:2rem;font-weight:800;border:0;padding:0}
+        .logo b{color:var(--red3)}
+        .nav .profile-btn{margin-left:auto;color:#fff;padding:0 24px;min-height:44px;border:1px solid var(--red);border-radius:8px;background:var(--red);display:inline-flex;align-items:center;font-weight:600}
+        h1{margin:0;font-size:clamp(2.2rem,6vw,3.6rem);line-height:1.05;font-weight:800;text-transform:uppercase}
+        h2{margin:0 0 16px;font-size:1.25rem}
+        .sub{color:var(--mu);margin:8px 0 28px}
+        .m{color:var(--mu);font-size:.92rem;margin:4px 0 0}
+        .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px;margin-bottom:24px}
+        .li{border:1px solid var(--line);border-radius:12px;padding:18px;margin-top:14px}
+        form{margin:0}
+        label{display:block;color:var(--mu);font-size:.9rem;margin:16px 0 8px}
+        select,textarea,input[type=text]{display:block;width:100%;min-height:48px;padding:0 14px;background:var(--field);color:var(--tx);border:1px solid var(--line);border-radius:10px;font:inherit;color-scheme:dark}
+        textarea{padding:12px 14px;min-height:110px}
+        select:focus,textarea:focus,input[type=text]:focus{outline:2px solid var(--red)}
+        .btn,.b2{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 22px;border-radius:8px;font:inherit;font-weight:600;text-decoration:none;cursor:pointer;border:1px solid var(--red);background:var(--red);color:#fff;margin-top:20px}
+        .btn:hover{background:var(--red2)}
+        .b2{min-height:38px;padding:0 16px;margin:0;background:transparent;border-color:var(--line);color:var(--tx);font-weight:500}
+        .b2:hover{background:#1d1d20}
+        .b2.del{border-color:var(--red);color:#f87171}
+        .acts{display:flex;gap:8px;margin-top:14px}
+        .wt{color:var(--am);letter-spacing:2px}
+        .alert{background:rgba(220,38,38,.12);border:1px solid var(--red);color:#fca5a5;padding:12px 14px;border-radius:10px;margin-bottom:16px}
+        .alert.ok{background:rgba(52,211,153,.1);border-color:var(--gr);color:#6ee7b7}
+        table{width:100%;border-collapse:collapse}
+        th{color:var(--mu);font-weight:400;font-size:.9rem;text-align:left;padding:10px 8px;border-bottom:1px solid var(--line)}
+        td{padding:14px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+        tr:last-child td{border-bottom:0}
+        .empty{color:var(--mu);padding:20px 0}
+    </style>
+</head>
+<body>
+
+<div th:replace="~{fragments/layout :: navbar('reviews')}"></div>
+
+<div class="pg">
+    <h1>Reviews</h1>
+    <p class="sub"><a th:href="@{/reviews/my}" style="color:var(--mu)">My reviews</a> · <a th:href="@{/reviews}" style="color:var(--mu)">All reviews</a></p>
+
+    <div class="alert ok" th:if="${message}" th:text="${message}"></div>
+    <div class="alert" th:if="${error}" th:text="${error}"></div>
+
+    <!-- Add review -->
+    <div class="card">
+        <h2>Add a review</h2>
+        <p class="m">You can review a bike after one of your bookings for it is marked Completed.</p>
+        <form th:action="@{/reviews/save}" method="post">
+            <label for="bikeId">Bike ID (example: B001)</label>
+            <input type="text" id="bikeId" name="bikeId" th:value="${bikeId}" required>
+            <label for="rating">Rating</label>
+            <select id="rating" name="rating">
+                <option value="5">5 - Excellent</option>
+                <option value="4">4 - Good</option>
+                <option value="3">3 - Okay</option>
+                <option value="2">2 - Poor</option>
+                <option value="1">1 - Bad</option>
+            </select>
+            <label for="comment">Comment (optional)</label>
+            <textarea id="comment" name="comment" maxlength="300"></textarea>
+            <button class="btn" type="submit">Add review</button>
+        </form>
+    </div>
+
+    <div class="empty" th:if="${reviewCount == 0}">No reviews yet.</div>
+
+    <div class="li" th:each="r : ${reviews}">
+        <span class="wt" th:text="${#strings.repeat('★', r.rating)}">★★★★★</span>
+        <p class="m" th:text="'Bike ' + ${r.bikeId} + ' · ' + ${r.reviewDate}">Bike B001</p>
+        <p th:if="${!#strings.isEmpty(r.comment)}" th:text="${r.comment}">Comment</p>
+
+        <!-- Edit / Delete: owner only -->
+        <div class="acts" th:if="${r.userId == currentUserId}">
+            <a class="b2" th:href="@{/reviews/edit/{id}(id=${r.reviewId})}">Edit</a>
+            <form th:action="@{/reviews/delete/{id}(id=${r.reviewId})}" method="post"
+                  onsubmit="return confirm('Delete this review?');">
+                <button class="b2 del" type="submit">Delete</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
